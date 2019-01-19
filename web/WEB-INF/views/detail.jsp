@@ -54,21 +54,21 @@
         </div>
     </div>
     <div class="form-group">
-        <label>Title : </label>
+        <label>Title : ${board.title}</label>
     </div>
     <div class="form-group">
-        <label>E-Mail : </label>
+        <label>NickName : ${board.nickname}</label>
     </div>
     <div class="form-group">
         <label for="content">Comment:</label>
-        <textarea class="form-control" rows="10" name="content" id="content" readonly="readonly"></textarea>
+        <textarea class="form-control" rows="10" name="content" id="content" readonly="readonly">${board.content}</textarea>
     </div>
 
     <a class="btn btn-default pull-left" href="/board/main">이전글</a>
-    <a class="btn btn-default pull-left" href="/board/update">이후글</a>
+    <a class="btn btn-default pull-left" href="/board/main">이후글</a>
 
     <a class="btn btn-default pull-right" href="/board/main">목록</a>
-    <a class="btn btn-default pull-right" href="/board/update">수정</a>
+    <a class="btn btn-default pull-right" href="/board/update?id=${board.id}">수정</a>
 
 </div>
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->

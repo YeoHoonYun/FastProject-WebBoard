@@ -53,16 +53,21 @@
             <h3>글수정</h3>
         </div>
     </div>
-    <form method="post" action="/board/write" enctype="multipart/form-data">
+    <form method="post" action="/board/update" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="hidden" class="form-control" name ="boardId" id="boardId" placeholder="${board.id}" value="${board.id}">
+        </div>
         <div class="form-group">
             <label for="subject">Title</label>
-            <input type="text" class="form-control" name ="subject" id="subject" placeholder="Enter title">
+            <input type="text" class="form-control" name ="subject" id="subject" placeholder="${board.title}" value="${board.title}">
         </div>
 
         <div class="form-group">
             <label for="content">Comment:</label>
-            <textarea class="form-control" rows="10" name="content" id="content"></textarea>
+            <textarea class="form-control" rows="10" name="content" id="content"  placeholder="${board.content}" value="${board.content}"></textarea>
         </div>
+
+        <input type="file" name = "file"><br/>
 
         <a class="btn btn-default pull-right" href="/board/main">취소</a>
         <button type="submit" class="btn btn-default pull-right">수정</button>

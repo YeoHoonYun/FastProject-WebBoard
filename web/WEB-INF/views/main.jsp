@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>메인 페이지</title>
@@ -64,13 +65,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td><a href="/board/detail">첫번째 글입니다.</a></td>
-            <td>Yun</td>
-            <td>2019-01-19</td>
-            <td>0</td>
-        </tr>
+        <c:forEach items="${requestScope.list}" var="board">
+            <tr>
+                <th scope="row">${board.id}</th>
+                <td><a href="/board/detail?id=${board.id}">${board.title}</a></td>
+                <td>${board.nickname}</td>
+                <td>${board.regdate}</td>
+                <td>${board.readCount}</td>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
     <a class="btn btn-default pull-right" href="/board/write">글쓰기</a>
