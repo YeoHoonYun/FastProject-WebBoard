@@ -21,10 +21,18 @@ import java.util.List;
 public class MainBoardController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int p = 1;
+        if(req.getParameter("p") != null){
+            p = Integer.parseInt(req.getParameter("p"));
+            if(Integer.parseInt(req.getParameter("p")) <= 0){
+                p = 1;
+            }
+        }
         System.out.println("main_get");
         BoardService boardService = new BoardServiceImpl();
-        List<Board> list = boardService.selectLists();
+        List<Board> list = boardService.selectLists(p);
 
+        req.setAttribute("p",p);
         req.setAttribute("list", list);
         RequestDispatcher dispatcherServlet = req.getRequestDispatcher("/WEB-INF/views/main.jsp");
         dispatcherServlet.forward(req,resp);
@@ -32,6 +40,7 @@ public class MainBoardController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        RequestDispatcher dispatcherServlet = req.getRequestDispatcher("/WEB-INF/views/main.jsp");
+        dispatcherServlet.forward(req,resp);
     }
 }

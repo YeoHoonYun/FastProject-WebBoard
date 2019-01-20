@@ -6,13 +6,13 @@ package yun.fast.webproject.board.DAO.Query;
  */
 public class BoardDaoSQL {
     public static final String SELECT_BY_ID =
-            "select id, title, nickname, content, regdate, file_path, read_count " +
+            "select id, title, nickname, content, regdate, file_path, read_count,groupno,grpord,depth " +
                     "from board " +
-                    "where id = ? ";
+                    "where id = ?";
     public static final String SELECT_BY_PAGING =
             "select id, title, nickname, regdate, read_count, depth " +
                     "from board " +
-                    "order by groupno desc, grpord";
+                    "order by groupno desc, grpord limit ?, ?";
     public static final String LAST_ID =
             "UPDATE board SET groupno = LAST_INSERT_ID() where id = ?";
     public static final String INSERT =
@@ -27,6 +27,10 @@ public class BoardDaoSQL {
     public static final String UPDATE_GRPORD =
             "UPDATE board SET grpord = grpord + 1 where groupno = ? and grpord >= ? + 1";
     public static final String INSERT_GROUP =
-            "insert into board (title,user_id,nickname,content,groupno,grpord,depth,file_path) " +
-                    "    values (?    ,?      , ?     , ?      , ?      ,? + 1    ,? + 1,?)";
+            "insert into board (title,user_id,nickname,content,groupno,grpord,depth) " +
+                    "    values (?    ,?      , ?     , ?      , ?      ,? + 1    ,? + 1)";
+    public static final String PRE =
+            "SELECT id FROM board WHERE id > ? ORDER BY id LIMIT 1";
+    public static final String BEFOR =
+            "SELECT id FROM board WHERE id < ? ORDER BY id DESC LIMIT 1";
 }

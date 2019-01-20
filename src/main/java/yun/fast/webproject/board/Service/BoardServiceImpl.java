@@ -7,6 +7,7 @@ import yun.fast.webproject.board.Util.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,15 +15,18 @@ import java.util.List;
  * Github : https://github.com/YeoHoonYun
  */
 public class BoardServiceImpl implements BoardService {
+    private static int maxNum = 5;
     @Override
-    public List<Board> selectLists() {
+    public List<Board> selectLists(int p) {
+        int startNum = maxNum * (p-1);
+        int endNum = maxNum;
         BoardDao boardDao = new BoardDaoImpl();
         List<Board> boardList = new ArrayList<>();
         Connection conn = null;
         try{
             conn = DBUtil.getConnection();
             ConnectionContextHolder.setConnection(conn);
-            boardList = boardDao.selectLists();
+            boardList = boardDao.selectLists(startNum, endNum);
             conn.commit();
         }catch (Exception e){
             DBUtil.rollback(conn);
@@ -72,14 +76,14 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void insertBoard(String title, Long userId, String nickname, String content,Long lastId, String path) {
+    public void insertBoard(String title, Long userId, String nickname, String content, String path) {
         Connection conn = null;
         BoardDao boardDao = new BoardDaoImpl();
         try{
             conn = DBUtil.getConnection();
             ConnectionContextHolder.setConnection(conn);
 
-            boardDao.insertBoard(title, userId, nickname, content,lastId ,path);
+            boardDao.insertBoard(title, userId, nickname, content ,path);
             conn.commit();
         }catch (Exception e){
             e.printStackTrace();
@@ -144,14 +148,14 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void createGrp(String title, String userId, String content, int groupno, int grpord, int depth) {
+    public void createGrp(String title, Long userId, String nickname, String content, Long groupno, int grpord, int depth) {
         Connection conn = null;
         BoardDao boardDao = new BoardDaoImpl();
         try{
             conn = DBUtil.getConnection();
             ConnectionContextHolder.setConnection(conn);
 
-            boardDao.createGrp(title, userId, content, groupno, grpord, depth);
+            boardDao.insertReBoard(title, userId, nickname, content, groupno, grpord, depth);
             conn.commit();
         }catch (Exception e){
             DBUtil.rollback(conn);
@@ -162,7 +166,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void updateGrp(int groupno, int grpord) {
+    public void updateGrp(Long groupno, int grpord) {
         Connection conn = null;
         BoardDao boardDao = new BoardDaoImpl();
         try{
@@ -177,5 +181,42 @@ public class BoardServiceImpl implements BoardService {
         }finally {
             DBUtil.close(conn);
         }
+    }
+
+    @Override
+    public Long pre(Long id) {
+        BoardDao boardDao = new BoardDaoImpl();
+        Long longs = null;
+        Connection conn = null;
+        try{
+            conn = DBUtil.getConnection();
+            ConnectionContextHolder.setConnection(conn);
+            longs = boardDao.pre(id);
+            conn.commit();
+        }catch (Exception e){
+            DBUtil.rollback(conn);
+            e.printStackTrace();
+        }finally {
+            DBUtil.close(conn);
+        }
+        return longs;
+    }
+    @Override
+    public Long before(Long id) {
+        BoardDao boardDao = new BoardDaoImpl();
+        Long longs = null;
+        Connection conn = null;
+        try{
+            conn = DBUtil.getConnection();
+            ConnectionContextHolder.setConnection(conn);
+            longs = boardDao.before(id);
+            conn.commit();
+        }catch (Exception e){
+            DBUtil.rollback(conn);
+            e.printStackTrace();
+        }finally {
+            DBUtil.close(conn);
+        }
+        return longs;
     }
 }

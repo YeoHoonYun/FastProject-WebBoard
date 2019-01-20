@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: cjswo
@@ -32,12 +33,13 @@
                 <a class="navbar-brand" href="/">게시판</a>
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="/board/main">목록<span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="/board/main">목록<span class="sr-only">(current)</span></a></li>
                     <li><a href="/board/write">글쓰기</a></li>
-                    <li><a href="/board/register">회원가입</a></li>
+                    <c:if test="${sessionScope.userInfo == null}">
+                        <li><a href="/board/register">회원가입</a></li>
+                    </c:if>
                 </ul>
                 <form class="navbar-form navbar-left" role="search"  method="post" action="/board/main">
                     <div class="form-group">
@@ -45,11 +47,17 @@
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
-            </div><!-- /.navbar-collapse -->
+                <c:if test="${sessionScope.userInfo != null}">
+                    <ul class="nav navbar-right">
+                        <li>${sessionScope.userInfo.nickname}님 환영합니다.</li>
+                    </ul>
+                </c:if>
+
+            </div>
         </div><!-- /.container-fluid -->
     </nav>
     <div class="page-header">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-12 col-md-offset-3">
             <h3>글수정</h3>
         </div>
     </div>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 /**
@@ -24,6 +25,18 @@ public class DetailBoardController extends HttpServlet {
         System.out.println("detail_get");
         BoardService boardService = new BoardServiceImpl();
         Board board = boardService.selectOneBoard(Long.parseLong(req.getParameter("id")));
+
+        Long pre = boardService.pre(Long.parseLong(req.getParameter("id")));
+        Long before = boardService.before(Long.parseLong(req.getParameter("id")));
+
+        if(pre == null){
+            pre = Long.parseLong(req.getParameter("id"));
+        }else if(before == null){
+            before = Long.parseLong(req.getParameter("id"));
+        }
+
+        req.setAttribute("pre", pre);
+        req.setAttribute("before", before);
 
         req.setAttribute("board", board);
         RequestDispatcher dispatcherServlet = req.getRequestDispatcher("/WEB-INF/views/detail.jsp");

@@ -29,17 +29,17 @@
         <h2 class="card-title text-center" style="color:#113366;">로그인 폼</h2>
     </div>
     <div class="card-body">
-        <form class="form-signin" method="POST" onSubmit="logincall();return false">
+        <form class="form-signin" method="POST" action="/login">
             <h5 class="form-signin-heading">로그인 정보를 입력하세요</h5>
             <label for="inputEmail" class="sr-only">Your ID</label>
-            <input type="text" id="inputEmail" class="form-control" placeholder="Your ID" required autofocus><BR>
+            <input type="text" id="inputEmail" name="inputEmail" class="form-control" placeholder="Your ID" required autofocus><BR>
             <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required><br>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="remember-me"> 기억하기
-                </label>
-            </div>
+            <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required><br>
+            <%--<div class="checkbox">--%>
+                <%--<label>--%>
+                    <%--<input type="checkbox" value="remember-me"> 기억하기--%>
+                <%--</label>--%>
+            <%--</div>--%>
             <button id="btn-Yes" class="btn btn-lg btn-primary btn-block" type="submit">로 그 인</button>
         </form>
 

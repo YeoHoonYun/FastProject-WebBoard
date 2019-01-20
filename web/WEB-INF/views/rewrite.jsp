@@ -2,18 +2,14 @@
 <%--
   Created by IntelliJ IDEA.
   User: cjswo
-  Date: 2019-01-19
-  Time: 오후 7:28
+  Date: 2019-01-18
+  Time: 오후 12:33
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>회원가입</title>
+    <title>글쓰기 페이지</title>
     <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <!-- 부가적인 테마 -->
@@ -22,7 +18,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<article class="container">
+
+<div class="container">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -60,42 +57,37 @@
         </div><!-- /.container-fluid -->
     </nav>
     <div class="page-header">
-        <div class="col-md-6 col-md-offset-3">
-            <h3>회원가입</h3>
+        <div class="col-md-12 col-md-offset-3">
+            <h3>답글쓰기</h3>
         </div>
     </div>
-    <div class="col-sm-6 col-md-offset-3">
-        <form role="form" method="post" action="/board/register">
-            <div class="form-group">
-                <label for="inputName">성명</label>
-                <input type="text" class="form-control" name="inputName" id="inputName" placeholder="이름을 입력해 주세요">
-            </div>
-            <div class="form-group">
-                <label for="nickName">닉네임</label>
-                <input type="tel" class="form-control" name="nickName" id="nickName" placeholder="휴대폰번호를 입력해 주세요">
-            </div>
-            <div class="form-group">
-                <label for="inputEmail">이메일 주소</label>
-                <input type="email" class="form-control" name="inputEmail" id="inputEmail" placeholder="이메일 주소를 입력해주세요">
-            </div>
-            <div class="form-group">
-                <label for="inputPassword">비밀번호</label>
-                <input type="password" class="form-control" name="inputPassword" id="inputPassword" placeholder="비밀번호를 입력해주세요">
-            </div>
-            <div class="form-group">
-                <label for="inputPasswordCheck">비밀번호 확인</label>
-                <input type="password" class="form-control" name="inputPasswordCheck" id="inputPasswordCheck" placeholder="비밀번호 확인을 위해 다시한번 입력 해 주세요">
-            </div>
-            <div class="form-group text-center">
-                <a class="btn btn-default pull-right" href="/login">취소</a>
-                <button type="submit" class="btn btn-default pull-right">가입</button>
-            </div>
-        </form>
-    </div>
+    <form method="post" action="/board/rewrite">
+        <div class="form-group">
+            <label for="subject">Title</label>
+            <input type="text" class="form-control" name ="subject" id="subject" placeholder="Enter title">
+        </div>
+        <div class="form-group">
+            <input type="hidden" class="form-control" name ="groupno" id="groupno" value="${board.groupno}">
+        </div>
+        <div class="form-group">
+            <input type="hidden" class="form-control" name ="grpord" id="grpord" value="${board.grpord}">
+        </div>
+        <div class="form-group">
+            <input type="hidden" class="form-control" name ="depth" id="depth" value="${board.depth}">
+        </div>
 
-</article>
+        <div class="form-group">
+            <label for="content">Comment:</label>
+            <textarea class="form-control" rows="10" name="content" id="content"></textarea>
+        </div>
+
+        <input type="file" name = "file"><br/>
+
+        <a class="btn btn-default pull-right" href="/board/main">취소</a>
+        <button type="submit" class="btn btn-default pull-right">작성</button>
+    </form>
+</div>
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
 <script type="text/javascript" src="http:code.jquery.com/jquery-1.8.3.min.js"></script>
 </body>
 </html>
-

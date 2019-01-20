@@ -4,6 +4,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import yun.fast.webproject.board.Service.BoardService;
 import yun.fast.webproject.board.Service.BoardServiceImpl;
+import yun.fast.webproject.board.DTO.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -12,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Enumeration;
 
@@ -49,7 +51,10 @@ public class WriteBoardController extends HttpServlet {
         BoardService boardService = new BoardServiceImpl();
         boardService.lastId(12L);
 
-        boardService.insertBoard(title,1L, "yun" ,content,12L,fileName);
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("userInfo");
+
+        boardService.insertBoard(title,user.getId(), user.getNickname() ,content,fileName);
         resp.sendRedirect("/board/main");
     }
 }

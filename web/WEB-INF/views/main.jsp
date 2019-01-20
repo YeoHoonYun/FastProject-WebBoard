@@ -33,12 +33,13 @@
                 <a class="navbar-brand" href="/">게시판</a>
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/board/main">목록<span class="sr-only">(current)</span></a></li>
                     <li><a href="/board/write">글쓰기</a></li>
-                    <li><a href="/board/register">회원가입</a></li>
+                    <c:if test="${sessionScope.userInfo == null}">
+                        <li><a href="/board/register">회원가입</a></li>
+                    </c:if>
                 </ul>
                 <form class="navbar-form navbar-left" role="search"  method="post" action="/board/main">
                     <div class="form-group">
@@ -46,22 +47,28 @@
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
-            </div><!-- /.navbar-collapse -->
+                <c:if test="${sessionScope.userInfo != null}">
+                    <ul class="nav navbar-right">
+                        <li>${sessionScope.userInfo.nickname}님 환영합니다.</li>
+                    </ul>
+                </c:if>
+
+            </div>
         </div><!-- /.container-fluid -->
     </nav>
     <div class="page-header">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-12 col-md-offset-3">
             <h3>게시물 리스트</h3>
         </div>
     </div>
     <table class="table table-hover">
         <thead>
         <tr>
-            <th scope="col">번호</th>
-            <th scope="col">제목</th>
-            <th scope="col">글쓴이</th>
-            <th scope="col">작성일</th>
-            <th scope="col">조회수</th>
+            <th scope="col" class="col-md-2">번호</th>
+            <th scope="col" class="col-md-4">제목</th>
+            <th scope="col" class="col-md-3">글쓴이</th>
+            <th scope="col" class="col-md-2">작성일</th>
+            <th scope="col" class="col-md-1">조회수</th>
         </tr>
         </thead>
         <tbody>
@@ -81,17 +88,23 @@
 <nav class="text-center">
     <ul class="pagination">
         <li>
-            <a href="#" aria-label="Previous">
+            <a href="/board/main?p=${requestScope.p-5}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
+        <li class="page-item">
+            <a class="page-link" href="/board/main?p=${requestScope.p-1}">Previous</a>
+        </li>
+        <li><a href="/board/main?p=${requestScope.p}">${requestScope.p}</a></li>
+        <li><a href="/board/main?p=${requestScope.p+1}">${requestScope.p+1}</a></li>
+        <li><a href="/board/main?p=${requestScope.p+2}">${requestScope.p+2}</a></li>
+        <li><a href="/board/main?p=${requestScope.p+3}">${requestScope.p+3}</a></li>
+        <li><a href="/board/main?p=${requestScope.p+4}">${requestScope.p+4}</a></li>
+        <li class="page-item">
+            <a class="page-link" href="/board/main?p=${requestScope.p+1}">Next</a>
+        </li>
         <li>
-            <a href="#" aria-label="Next">
+            <a href="/board/main?p=${requestScope.p+5}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>

@@ -1,5 +1,11 @@
 package yun.fast.webproject.board.Controller;
 
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import yun.fast.webproject.board.DTO.User;
+import yun.fast.webproject.board.Service.UserService;
+import yun.fast.webproject.board.Service.UserServiceImpl;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +28,18 @@ public class RegisterBoardController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        req.setCharacterEncoding("UTF-8");
+        String name = req.getParameter("inputName");
+        String nickName = req.getParameter("nickName");
+        String inputEmail = req.getParameter("inputEmail");
+        String passwd = req.getParameter("inputPassword");
+
+        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        String encodepasswd = passwordEncoder.encode(passwd);
+
+        User user = new User(name, nickName,inputEmail,encodepasswd);
+        UserService userService = UserServiceImpl.getInstance();
+        userService.userAdd(user);
+        resp.sendRedirect("/login");
     }
 }

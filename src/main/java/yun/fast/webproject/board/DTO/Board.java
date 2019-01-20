@@ -19,9 +19,6 @@ public class Board {
     private int grpord;
     private int depth;
 
-    public Board() {
-    }
-
     public Board(long id, String title, String nickname, Date regdate, int readCount, int depth) {
         this.id = id;
         this.title = title;
@@ -31,14 +28,12 @@ public class Board {
         this.depth = depth;
     }
 
-    public Board(long id, String title, String nickname, String content, Date regdate, String filePath, int readCount) {
-        this.id = id;
-        this.title = title;
-        this.nickname = nickname;
-        this.regdate = regdate;
-        this.readCount = readCount;
+    public Board(long id1, String title, String nickname, String content, Date regdate, String filePath, int readCount, Long groupno, int grpord, int depth) {
+        this(id1, title, nickname, regdate, readCount, depth);
         this.content = content;
         this.filePath = filePath;
+        this.grpord = grpord;
+        this.groupno = groupno;
     }
 
     public Long getId() {
