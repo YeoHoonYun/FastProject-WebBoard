@@ -87,7 +87,7 @@
 
         <div class="form-group">
             <label for="content">Comment:</label>
-            <textarea class="form-control" rows="10" name="content" id="content"  placeholder="${board.content}" value="${board.content}"></textarea>
+            <textarea class="form-control" rows="10" name="content" id="content"  placeholder="${board.content}" >${board.content}</textarea>
         </div>
 
         <input type="file" name = "file" value="${board.filePath}"><br/>

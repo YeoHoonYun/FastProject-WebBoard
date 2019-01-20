@@ -33,9 +33,16 @@ public class RegisterBoardController extends HttpServlet {
         String nickName = req.getParameter("nickName");
         String inputEmail = req.getParameter("inputEmail");
         String passwd = req.getParameter("inputPassword");
+        String passwd2 = req.getParameter("inputPasswordCheck");
 
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         String encodepasswd = passwordEncoder.encode(passwd);
+
+        if(!passwordEncoder.matches(passwd2, encodepasswd)){
+            System.out.println("비번 틀린듯?");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/views/register.jsp");
+            requestDispatcher.forward(req,resp);
+        }
 
         User user = new User(name, nickName,inputEmail,encodepasswd);
         UserService userService = UserServiceImpl.getInstance();
