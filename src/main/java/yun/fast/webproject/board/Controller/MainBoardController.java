@@ -31,8 +31,23 @@ public class MainBoardController extends HttpServlet {
         System.out.println("main_get");
         BoardService boardService = new BoardServiceImpl();
         List<Board> list = boardService.selectLists(p);
+        Long count_num = boardService.selectView();
 
+        req.setAttribute("max",BoardServiceImpl.getMaxNum());
+        req.setAttribute("count",count_num);
         req.setAttribute("p",p);
+
+        int fromNum  = BoardServiceImpl.getMaxNum()*(p-1)+1;
+        int toNum = BoardServiceImpl.getMaxNum()*(p-1)+BoardServiceImpl.getMaxNum();
+
+        req.setAttribute("from",fromNum);
+        req.setAttribute("to",toNum);
+
+        if(toNum > count_num){
+            req.setAttribute("to","");
+        }else if(fromNum > count_num){
+            req.setAttribute("from", "");
+        }
         req.setAttribute("list", list);
         RequestDispatcher dispatcherServlet = req.getRequestDispatcher("/WEB-INF/views/main.jsp");
         dispatcherServlet.forward(req,resp);

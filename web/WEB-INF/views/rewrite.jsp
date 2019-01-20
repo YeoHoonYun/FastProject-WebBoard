@@ -35,15 +35,15 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/board/main">목록<span class="sr-only">(current)</span></a></li>
-                    <li><a href="/board/write">글쓰기</a></li>
+                    <li><a href="/board/main">목록<span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="/board/write">글쓰기</a></li>
                     <c:if test="${sessionScope.userInfo == null}">
                         <li><a href="/board/register">회원가입</a></li>
                     </c:if>
                 </ul>
                 <form class="navbar-form navbar-left" role="search"  method="post" action="/board/main">
                     <div class="form-group">
-                        <input type="text" name="search" class="form-control" placeholder="내용 검색">
+                        <input type="text" name="search" class="form-control" placeholder="제목 검색">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>

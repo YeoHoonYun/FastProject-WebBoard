@@ -26,4 +26,6 @@ public interface BoardService {
     Long pre(Long id);
 
     Long before(Long id);
+
+    Long selectView();
 }

@@ -43,7 +43,7 @@
                 </ul>
                 <form class="navbar-form navbar-left" role="search"  method="post" action="/board/main">
                     <div class="form-group">
-                        <input type="text" name="search" class="form-control" placeholder="내용 검색">
+                        <input type="text" name="search" class="form-control" placeholder="제목 검색">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>

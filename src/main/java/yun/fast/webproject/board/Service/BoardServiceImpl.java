@@ -241,4 +241,29 @@ public class BoardServiceImpl implements BoardService {
         }
         return longs;
     }
+    @Override
+    public Long selectView() {
+        BoardDao boardDao = new BoardDaoImpl();
+        Long longs = null;
+        Connection conn = null;
+        try{
+            conn = DBUtil.getConnection();
+            ConnectionContextHolder.setConnection(conn);
+            longs = boardDao.selectView();
+            conn.commit();
+        }catch (Exception e){
+            DBUtil.rollback(conn);
+            e.printStackTrace();
+        }finally {
+            DBUtil.close(conn);
+        }
+        return longs;
+    }
+    public static int getMaxNum() {
+        return maxNum;
+    }
+
+    public static void setMaxNum(int maxNum) {
+        BoardServiceImpl.maxNum = maxNum;
+    }
 }

@@ -21,6 +21,38 @@
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
+<script language="JavaScript">
+    function check_onclick(){
+        theFrom = document.register_form;
+
+        if(theFrom.inputName.value==""){
+            alert("이름이 비어있습니다. 2자 이상을 넣어주세요.");
+            return location.href='/board/register';
+        }else if((theFrom.inputName.value).length < 2){
+            alert("이름을 2자 이상 넣어주세요.");
+            return location.href='/board/register';
+        }
+        if(theFrom.nickName.value==""){
+            alert("닉네임이 비어있습니다.");
+            return location.href='/board/register';
+        }
+        if(theFrom.inputEmail.value==""){
+            alert("이메일이 비어있습니다.");
+            return location.href='/board/register';
+        }
+        if(theFrom.inputPassword.value==""){
+            alert("비밀번호가 비어있습니다.");
+            return location.href='/board/register';
+        }
+        if(theFrom.inputPasswordCheck.value==""){
+            alert("비밀번호확인이 비어있습니다.");
+            return location.href='/board/register';
+        }else if(theFrom.inputPasswordCheck.value !== theFrom.inputPassword.value){
+            alert("비밀번호와 확인의 값이 다릅니다.");
+            return location.href='/board/register';
+        }
+    }
+</script>
 <body>
 <article class="container">
     <nav class="navbar navbar-default">
@@ -38,15 +70,15 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/board/main">목록<span class="sr-only">(current)</span></a></li>
+                    <li><a href="/board/main">목록<span class="sr-only">(current)</span></a></li>
                     <li><a href="/board/write">글쓰기</a></li>
                     <c:if test="${sessionScope.userInfo == null}">
-                        <li><a href="/board/register">회원가입</a></li>
+                        <li><a href="/board/register" class="active">회원가입</a></li>
                     </c:if>
                 </ul>
-                <form class="navbar-form navbar-left" role="search"  method="post" action="/board/main">
+                <form class="navbar-form navbar-left" name = "register_form" role="search"  method="post" action="/board/main">
                     <div class="form-group">
-                        <input type="text" name="search" class="form-control" placeholder="내용 검색">
+                        <input type="text" name="search" class="form-control" placeholder="제목 검색">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
@@ -65,14 +97,14 @@
         </div>
     </div>
     <div class="col-sm-6 col-md-offset-3">
-        <form role="form" method="post" action="/board/register">
+        <form role="form" method="post" name = "register_form" action="/board/register">
             <div class="form-group">
                 <label for="inputName">성명</label>
                 <input type="text" class="form-control" name="inputName" id="inputName" placeholder="이름을 입력해 주세요">
             </div>
             <div class="form-group">
                 <label for="nickName">닉네임</label>
-                <input type="tel" class="form-control" name="nickName" id="nickName" placeholder="휴대폰번호를 입력해 주세요">
+                <input type="text" class="form-control" name="nickName" id="nickName" placeholder="휴대폰번호를 입력해 주세요">
             </div>
             <div class="form-group">
                 <label for="inputEmail">이메일 주소</label>
@@ -88,7 +120,7 @@
             </div>
             <div class="form-group text-center">
                 <a class="btn btn-default pull-right" href="/login">취소</a>
-                <button type="submit" class="btn btn-default pull-right">가입</button>
+                <button type="submit" class="btn btn-default pull-right" onclick="check_onclick()">가입</button>
             </div>
         </form>
     </div>

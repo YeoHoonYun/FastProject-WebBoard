@@ -262,4 +262,23 @@ public class BoardDaoImpl implements BoardDao {
         }
         return id1;
     }
+
+    @Override
+    public Long selectView() {
+        Connection conn = ConnectionContextHolder.getConnection();
+        Long countNum = 0L;
+        try{
+            try(PreparedStatement ps = conn.prepareStatement(BoardDaoSQL.BOARD_VIEW_SELECT)){
+                try(ResultSet rs = ps.executeQuery()){
+                    if(rs.next()) {
+                        countNum = rs.getLong(1);
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return countNum;
+    }
 }

@@ -18,7 +18,22 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
+<script language="JavaScript">
+    function check_onclick(){
+        theFrom = document.write_form;
 
+        if(theFrom.subject.value==""){
+            alert("제목이 비어있습니다. 2자 이상을 넣어주세요.");
+            return theFrom.subject.focus();
+        }else if((theFrom.subject.value).length < 2){
+            alert("제목을 2자 이상 넣어주세요.");
+        }
+        if(theFrom.content.value==""){
+            alert("내용이 비어있습니다.");
+            return theFrom.content.focus();
+        }
+    }
+</script>
 <div class="container">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -35,15 +50,15 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/board/main">목록<span class="sr-only">(current)</span></a></li>
-                    <li><a href="/board/write">글쓰기</a></li>
+                    <li><a href="/board/main">목록<span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="/board/write">글쓰기</a></li>
                     <c:if test="${sessionScope.userInfo == null}">
                         <li><a href="/board/register">회원가입</a></li>
                     </c:if>
                 </ul>
                 <form class="navbar-form navbar-left" role="search"  method="post" action="/board/main">
                     <div class="form-group">
-                        <input type="text" name="search" class="form-control" placeholder="내용 검색">
+                        <input type="text" name="search" class="form-control" placeholder="제목 검색">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
@@ -60,7 +75,7 @@
             <h3>글쓰기</h3>
         </div>
     </div>
-    <form method="post" action="/board/write" enctype="multipart/form-data">
+    <form method="post" name = "write_form" action="/board/write" enctype="multipart/form-data">
         <div class="form-group">
             <label for="subject">Title</label>
             <input type="text" class="form-control" name ="subject" id="subject" placeholder="Enter title">
@@ -74,7 +89,7 @@
         <input type="file" name = "file"><br/>
 
         <a class="btn btn-default pull-right" href="/board/main">취소</a>
-        <button type="submit" class="btn btn-default pull-right">작성</button>
+        <button type="submit" class="btn btn-default pull-right" onclick="check_onclick()">작성</button>
     </form>
 </div>
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->

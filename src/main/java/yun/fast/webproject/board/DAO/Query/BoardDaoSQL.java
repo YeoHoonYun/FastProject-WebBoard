@@ -36,6 +36,8 @@ public class BoardDaoSQL {
     public static final String SELECT_BY_WORD =
             "select id, title, nickname, regdate, read_count, depth " +
             "from board " +
-            "where content like ?" +
+            "where title like ?" +
             "order by groupno desc, grpord limit ?, ?";
+    public static final String BOARD_VIEW_SELECT =
+            "select count_id from boardview";
 }

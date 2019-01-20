@@ -25,4 +25,6 @@ public interface BoardDao {
     Long before(Long id);
 
     Long pre(Long id);
+
+    Long selectView();
 }

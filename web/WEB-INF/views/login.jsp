@@ -35,14 +35,13 @@
             <input type="text" id="inputEmail" name="inputEmail" class="form-control" placeholder="Your ID" required autofocus><BR>
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required><br>
-            <%--<div class="checkbox">--%>
-                <%--<label>--%>
-                    <%--<input type="checkbox" value="remember-me"> 기억하기--%>
-                <%--</label>--%>
-            <%--</div>--%>
+            <div class="text">
+                <label>
+                    <a href="/board/register">회원가입</a>
+                </label>
+            </div>
             <button id="btn-Yes" class="btn btn-lg btn-primary btn-block" type="submit">로 그 인</button>
         </form>
-
     </div>
 </div>
 

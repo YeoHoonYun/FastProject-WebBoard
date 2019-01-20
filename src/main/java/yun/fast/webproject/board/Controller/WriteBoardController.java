@@ -53,7 +53,12 @@ public class WriteBoardController extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("userInfo");
 
-        boardService.insertBoard(title,user.getId(), user.getNickname() ,content,fileName);
-        resp.sendRedirect("/board/main");
+        if(title.length() < 2 || content.length() == 0){
+            resp.sendRedirect("/board/write");
+        }
+        else {
+            boardService.insertBoard(title, user.getId(), user.getNickname(), content, fileName);
+            resp.sendRedirect("/board/main");
+        }
     }
 }
