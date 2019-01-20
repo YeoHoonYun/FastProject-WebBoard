@@ -40,6 +40,25 @@ public class MainBoardController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        int p = 1;
+        String word = "%%";
+        if(req.getParameter("p") != null){
+            p = Integer.parseInt(req.getParameter("p"));
+            if(Integer.parseInt(req.getParameter("p")) <= 0){
+                p = 1;
+            }
+        }
+        if(req.getParameter("search") != null){
+            word = "%" + req.getParameter("search")+"%";
+        }
+        System.out.println(word);
+        System.out.println("post");
+        BoardService boardService = new BoardServiceImpl();
+        List<Board> list = boardService.selectLists(p, word);
+
+        req.setAttribute("p",p);
+        req.setAttribute("list", list);
         RequestDispatcher dispatcherServlet = req.getRequestDispatcher("/WEB-INF/views/main.jsp");
         dispatcherServlet.forward(req,resp);
     }

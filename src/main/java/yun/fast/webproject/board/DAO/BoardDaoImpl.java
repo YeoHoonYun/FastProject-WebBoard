@@ -18,6 +18,37 @@ import java.util.List;
 public class BoardDaoImpl implements BoardDao {
 
     @Override
+    public List<Board> selectLists(int startNum, int endNum, String word) {
+        List<Board> boardList = new ArrayList<>();
+        Connection conn = ConnectionContextHolder.getConnection();
+        try{
+            try(PreparedStatement ps = conn.prepareStatement(BoardDaoSQL.SELECT_BY_WORD)){
+                ps.setString(1, word);
+                ps.setInt(2,startNum);
+                ps.setInt(3,endNum);
+                try(ResultSet rs = ps.executeQuery()){
+                    while(rs.next()) {
+                        long id = rs.getLong(1);
+                        String title = rs.getString(2);
+                        String nickname = rs.getString(3);
+                        Date regdate = rs.getDate(4);
+                        int readCount = rs.getInt(5);
+                        int depth = rs.getInt(6);
+
+                        title = new String(new char[depth-1]).replace("\0","re) ") + title;
+
+                        boardList.add(new Board(id, title, nickname, regdate, readCount,depth));
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return boardList;
+    }
+
+    @Override
     public List<Board> selectLists(int startNum, int endNum) {
         List<Board> boardList = new ArrayList<>();
         Connection conn = ConnectionContextHolder.getConnection();

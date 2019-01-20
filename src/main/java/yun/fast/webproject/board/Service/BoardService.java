@@ -10,6 +10,8 @@ import java.util.List;
  * Github : https://github.com/YeoHoonYun
  */
 public interface BoardService {
+    List<Board> selectLists(int p, String word);
+
     List<Board> selectLists(int p);
     Board selectOneBoard(Long id);
     void lastId(long id);

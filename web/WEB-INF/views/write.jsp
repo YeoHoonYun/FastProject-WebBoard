@@ -43,16 +43,15 @@
                 </ul>
                 <form class="navbar-form navbar-left" role="search"  method="post" action="/board/main">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" name="search" class="form-control" placeholder="내용 검색">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
                 <c:if test="${sessionScope.userInfo != null}">
                     <ul class="nav navbar-right">
-                        <li>${sessionScope.userInfo.nickname}님 환영합니다.</li>
+                        <li><a href="/board/logout">${sessionScope.userInfo.nickname}님 환영합니다.</a></li>
                     </ul>
                 </c:if>
-
             </div>
         </div><!-- /.container-fluid -->
     </nav>

@@ -43,13 +43,13 @@
                 </ul>
                 <form class="navbar-form navbar-left" role="search"  method="post" action="/board/main">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" name="search" class="form-control" placeholder="내용 검색">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
                 <c:if test="${sessionScope.userInfo != null}">
                     <ul class="nav navbar-right">
-                        <li>${sessionScope.userInfo.nickname}님 환영합니다.</li>
+                        <li><a href="/board/logout">${sessionScope.userInfo.nickname}님 환영합니다.</a></li>
                     </ul>
                 </c:if>
 
@@ -83,7 +83,7 @@
         </c:forEach>
         </tbody>
     </table>
-    <a class="btn btn-default pull-right" href="/board/write">글쓰기</a>
+    <a class="btn btn-default pull-right"<c:if test="${sessionScope.userInfo == null}"> onclick="alert('로그인을 해야 글을 쓸 수 있습니다.')"</c:if> href="/board/write">글쓰기</a>
 </div>
 <nav class="text-center">
     <ul class="pagination">

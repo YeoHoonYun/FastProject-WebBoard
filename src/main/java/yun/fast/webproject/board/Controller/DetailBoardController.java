@@ -38,6 +38,8 @@ public class DetailBoardController extends HttpServlet {
         req.setAttribute("pre", pre);
         req.setAttribute("before", before);
 
+        System.out.println(board.getFilePath());
+
         req.setAttribute("board", board);
         RequestDispatcher dispatcherServlet = req.getRequestDispatcher("/WEB-INF/views/detail.jsp");
         dispatcherServlet.forward(req,resp);

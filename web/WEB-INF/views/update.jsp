@@ -43,13 +43,13 @@
                 </ul>
                 <form class="navbar-form navbar-left" role="search"  method="post" action="/board/main">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" name="search" class="form-control" placeholder="내용 검색">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
                 <c:if test="${sessionScope.userInfo != null}">
                     <ul class="nav navbar-right">
-                        <li>${sessionScope.userInfo.nickname}님 환영합니다.</li>
+                        <li><a href="/board/logout">${sessionScope.userInfo.nickname}님 환영합니다.</a></li>
                     </ul>
                 </c:if>
 
@@ -75,7 +75,7 @@
             <textarea class="form-control" rows="10" name="content" id="content"  placeholder="${board.content}" value="${board.content}"></textarea>
         </div>
 
-        <input type="file" name = "file"><br/>
+        <input type="file" name = "file" value="${board.filePath}"><br/>
 
         <a class="btn btn-default pull-right" href="/board/main">취소</a>
         <button type="submit" class="btn btn-default pull-right">수정</button>

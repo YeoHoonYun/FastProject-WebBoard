@@ -43,13 +43,13 @@
                 </ul>
                 <form class="navbar-form navbar-left" role="search"  method="post" action="/board/main">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" name="search" class="form-control" placeholder="내용 검색">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
                 <c:if test="${sessionScope.userInfo != null}">
                     <ul class="nav navbar-right">
-                        <li>${sessionScope.userInfo.nickname}님 환영합니다.</li>
+                        <li><a href="/board/logout">${sessionScope.userInfo.nickname}님 환영합니다.</a></li>
                     </ul>
                 </c:if>
 
@@ -67,10 +67,11 @@
     <div class="form-group">
         <label>NickName : ${board.nickname}</label>
     </div>
-
-    <div class="form-group">
-        <label>NickName : ${board.nickname}</label>
-    </div>
+    <c:if test="${board.filePath != null}">
+        <div class="from-group">
+            <a class="btn btn-default pull-right" href="/file/${board.filePath}" download>파일 다운로드</a>
+        </div>
+    </c:if>
     <div class="form-group">
         <label for="content">Comment:</label>
         <textarea class="form-control" rows="10" name="content" id="content" readonly="readonly">${board.content}</textarea>
@@ -80,9 +81,9 @@
     <a class="btn btn-default pull-left" href="/board/detail?id=${pre}">이후글</a>
 
     <a class="btn btn-default pull-right" href="/board/main">목록</a>
-    <a class="btn btn-default pull-right" href="/board/update?id=${board.id}">수정</a>
-    <a class="btn btn-default pull-right" href="/board/delete?id=${board.id}">삭제</a>
-    <a class="btn btn-default pull-right" href="/board/rewrite?id=${board.id}">답글</a>
+    <a class="btn btn-default pull-right" <c:if test="${sessionScope.userInfo == null}"> onclick="alert('로그인을 해야 글을 수정 할 수 있습니다.')"</c:if> href="/board/update?id=${board.id}">수정</a>
+    <a class="btn btn-default pull-right" <c:if test="${sessionScope.userInfo == null}"> onclick="alert('로그인을 해야 글을 삭제 할 수 있습니다.')"</c:if> href="/board/delete?id=${board.id}">삭제</a>
+    <a class="btn btn-default pull-right" <c:if test="${sessionScope.userInfo == null}"> onclick="alert('로그인을 해야 글을 쓸 수 있습니다.')"</c:if> href="/board/rewrite?id=${board.id}">답글</a>
 
 </div>
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->

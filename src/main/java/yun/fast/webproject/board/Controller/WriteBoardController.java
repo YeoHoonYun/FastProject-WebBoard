@@ -45,11 +45,10 @@ public class WriteBoardController extends HttpServlet {
         }catch (Exception e){
             e.printStackTrace();
         }
-
+        System.out.println(fileName);
         String title = multi.getParameter("subject");
         String content = multi.getParameter("content");
         BoardService boardService = new BoardServiceImpl();
-        boardService.lastId(12L);
 
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("userInfo");

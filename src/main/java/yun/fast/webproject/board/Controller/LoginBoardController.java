@@ -45,7 +45,12 @@ public class LoginBoardController extends HttpServlet {
                 System.out.println("매칭됫다.");
                 HttpSession httpSession = req.getSession();
                 httpSession.setAttribute("userInfo", user);
-                resp.sendRedirect("/board/main");
+                if(httpSession.getAttribute("beforePath") !=null){
+                    System.out.println(httpSession.getAttribute("beforePath"));
+                    resp.sendRedirect(String.valueOf(httpSession.getAttribute("beforePath")));
+                }else {
+                    resp.sendRedirect("/board/main");
+                }
             }
             else {
                 System.out.println("매칭안된다.");

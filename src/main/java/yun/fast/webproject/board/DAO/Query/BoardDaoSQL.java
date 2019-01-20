@@ -33,4 +33,9 @@ public class BoardDaoSQL {
             "SELECT id FROM board WHERE id > ? ORDER BY id LIMIT 1";
     public static final String BEFOR =
             "SELECT id FROM board WHERE id < ? ORDER BY id DESC LIMIT 1";
+    public static final String SELECT_BY_WORD =
+            "select id, title, nickname, regdate, read_count, depth " +
+            "from board " +
+            "where content like ?" +
+            "order by groupno desc, grpord limit ?, ?";
 }

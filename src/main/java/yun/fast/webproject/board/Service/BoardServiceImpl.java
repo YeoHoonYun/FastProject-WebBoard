@@ -16,6 +16,28 @@ import java.util.List;
  */
 public class BoardServiceImpl implements BoardService {
     private static int maxNum = 5;
+
+    @Override
+    public List<Board> selectLists(int p, String word) {
+        int startNum = maxNum * (p-1);
+        int endNum = maxNum;
+        BoardDao boardDao = new BoardDaoImpl();
+        List<Board> boardList = new ArrayList<>();
+        Connection conn = null;
+        try{
+            conn = DBUtil.getConnection();
+            ConnectionContextHolder.setConnection(conn);
+            boardList = boardDao.selectLists(startNum, endNum, word);
+            conn.commit();
+        }catch (Exception e){
+            DBUtil.rollback(conn);
+            e.printStackTrace();
+        }finally {
+            DBUtil.close(conn);
+        }
+        return boardList;
+    }
+
     @Override
     public List<Board> selectLists(int p) {
         int startNum = maxNum * (p-1);

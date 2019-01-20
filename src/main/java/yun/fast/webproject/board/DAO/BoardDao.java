@@ -9,6 +9,8 @@ import java.util.List;
  * Github : https://github.com/YeoHoonYun
  */
 public interface BoardDao {
+    List<Board> selectLists(int startNum, int endNum, String word);
+
     List<Board> selectLists(int startNum, int endNum);
     Board selectOneBoard(Long id);
     Long lastId(Long id);
