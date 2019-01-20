@@ -45,7 +45,8 @@ public class MainBoardController extends HttpServlet {
 
         if(toNum > count_num){
             req.setAttribute("to","");
-        }else if(fromNum > count_num){
+        }
+        if(fromNum > count_num){
             req.setAttribute("from", "");
         }
         req.setAttribute("list", list);

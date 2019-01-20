@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Enumeration;
 
 /**
@@ -49,11 +50,18 @@ public class UpdateBoardController extends HttpServlet {
         }catch (Exception e){
             e.printStackTrace();
         }
+
         Long id = Long.valueOf(multi.getParameter("boardId"));
         String title = multi.getParameter("subject");
         String content = multi.getParameter("content");
         BoardService boardService = new BoardServiceImpl();
-        boardService.updateBoard(id, title, content,fileName);
-        resp.sendRedirect("/board/main");
+
+        if(title.length() < 2 || content.length() == 0){
+            resp.sendRedirect("/board/update?" + req.getQueryString());
+        }
+        else {
+            boardService.updateBoard(id, title, content,fileName);
+            resp.sendRedirect("/board/main");
+        }
     }
 }
