@@ -38,8 +38,12 @@ public class RegisterBoardController extends HttpServlet {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         String encodepasswd = passwordEncoder.encode(passwd);
 
-        if(!passwordEncoder.matches(passwd2, encodepasswd)){
+        if(!passwordEncoder.matches(passwd2, encodepasswd) || passwd.length() + passwd2.length() == 0){
             System.out.println("비번 틀린듯?");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/views/register.jsp");
+            requestDispatcher.forward(req,resp);
+        }else if(name == "" || nickName == "" || inputEmail == ""){
+            System.out.println("빈값들....");
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/views/register.jsp");
             requestDispatcher.forward(req,resp);
         }
